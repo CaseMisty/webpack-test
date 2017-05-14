@@ -1,11 +1,11 @@
-# 使用webpack初始化一个项目
+# 使用webpack
 安装loader
 `npm install css-loader style-loader --save-dev`
 
 `webpack hello.js hello.bundle.js --module-bind css=style-loader!css-loader --watch`  
 可选参数：`--progress --display-modules --display-reasons`
 
-建立一个项目
+## 建立项目的webpack配置
 ```
 mkdir webpack-demo
 cd webpack-demo
@@ -37,3 +37,37 @@ module.exports = {
 "webpack": "webpack --config webpack.config.js --progress --display-modules --colors --display-reasons --watch"
 ```
 在命令行中`npm run webpack`执行。
+
+修改后的webpack.config.js:
+```javascript
+var htmlWebpackPlugin = require('html-webpack-plugin');
+module.exports = {
+    entry: {
+        main: './src/script/main.js',
+        a: './src/script/a.js'
+    },
+    output: {
+        // path: __dirname + '/dist/js',
+        path: __dirname + '/dist',
+        filename: 'js/[name]-[hash].js'
+    },
+    plugins: [
+        new htmlWebpackPlugin({
+            filename: 'index-[hash].html',
+            template: 'index.html'
+        })
+    ]
+};
+```
+filename的格式可以为[name]-[chunkhash].js，具体看[Output--webpack](https://doc.webpack-china.org/configuration/output/#output-filename)
+
+## 自动化生成项目中的html页面
+上面这种方法生成的文件名后半段是随机的，每次绑定文件名都会改，`npm install html-webpack-plugin --save-dev`。安装好后，于webpack.config.js第一行添一句`var htmlWebpackPlugin = require('html-webpack-plugin');`，在exports中加一项plugin属性：
+```
+    plugins: [
+        new htmlWebpackPlugin({
+            filename: 'index-[hash].html',
+            template: 'index.html'
+        })
+    ]
+```
