@@ -8,14 +8,19 @@ module.exports = {
         a: './src/script/a.js'
     },
     output: {
-        // path: __dirname + '/dist/js',
+        // filename: 'js/[name]-[hash].js',
+        // path: __dirname + '/dist/js'
         path: __dirname + '/dist',
-        filename: 'js/[name]-[hash].js'
+        filename: 'js/[name].js'
     },
     plugins: [
         new htmlWebpackPlugin({
             filename: 'index-[hash].html',
-            template: 'index.html'
+            template: 'index.html',
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true
+            }
         })
     ]
 };

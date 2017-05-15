@@ -71,3 +71,6 @@ filename的格式可以为[name]-[chunkhash].js，具体看[Output--webpack](htt
         })
     ]
 ```
+
+output中添加`publicPath: 'http://***.com'`，使生成的html文件js的src前都加上对应路径。
+plugins中添加`minify: {removeComments: true, collapseWhitespace: true}`使生成的html文件压缩并删除注释。

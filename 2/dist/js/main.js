@@ -71,6 +71,9 @@
 /* 1 */
 /***/ (function(module, exports) {
 
+/**
+ * 这个function是空的
+ */
 function helloworld() {
     
 }
